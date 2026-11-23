@@ -1,0 +1,289 @@
+/* ==========================================================================
+   CABORE — Sistema Global de Temas Visuales (Modo Claro & Modo Oscuro)
+   Centralizado mediante variables CSS y atributo html[data-theme="claro|oscuro"].
+   - Modo claro: conserva exactamente la paleta original de Caboré.
+   - Modo oscuro: paleta nocturna elegante con dorado Caboré y alto contraste.
+   - Las tiendas públicas personalizadas (body.tienda-publica-page) y la vista
+     previa del constructor (#previewViewport) conservan siempre sus variables.
+   ========================================================================== */
+
+:root,
+html[data-theme="claro"] {
+    color-scheme: light;
+    --hover-bg:           rgba(28, 24, 16, 0.04);
+    --row-hover:          rgba(28, 24, 16, 0.025);
+    --row-border:         rgba(28, 24, 16, 0.07);
+    --track-bg:           rgba(28, 24, 16, 0.07);
+    --input-bg:           rgba(28, 24, 16, 0.03);
+    --input-border:       rgba(28, 24, 16, 0.12);
+    --placeholder:        rgba(28, 24, 16, 0.35);
+    --gold-text:          #7a5c1c;
+    --on-gold:            #ffffff;
+    --danger:             #b91c1c;
+    --danger-bg:          rgba(220, 38, 38, 0.10);
+    --danger-border:      rgba(220, 38, 38, 0.25);
+    --success:            #0c7a4d;
+    --success-bg:         rgba(15, 157, 99, 0.10);
+    --success-border:     rgba(15, 157, 99, 0.28);
+    --info:               #1d4ed8;
+    --info-bg:            rgba(37, 99, 235, 0.10);
+    --info-border:        rgba(37, 99, 235, 0.26);
+    --warn:               #b4441f;
+    --warn-bg:            rgba(226, 96, 63, 0.12);
+    --purple:             #9333ea;
+    --purple-bg:          rgba(147, 51, 234, 0.10);
+    --purple-border:      rgba(147, 51, 234, 0.25);
+    --role-cliente-bg:    linear-gradient(135deg, #eaf1fe, #f7fafe);
+    --role-cliente-border:rgba(37, 99, 235, 0.22);
+    --role-empren-bg:     linear-gradient(135deg, #e7f7ef, #f6fcf9);
+    --role-empren-border: rgba(15, 157, 99, 0.22);
+    --hero-card-bg:       linear-gradient(135deg, #fdf6e8, #fbeed4);
+    --estrella-bg:        linear-gradient(135deg, #fff8e8, #fef0cf);
+    --estrella-crown-bg:  rgba(255, 255, 255, 0.65);
+    --banner-preview-bg:  linear-gradient(135deg, #fdf6e8, #fbeed4);
+    --img-placeholder-bg: linear-gradient(135deg, #f3ede0, #ebe2cf);
+}
+
+/* ── Botón global para alternar tema (Sol / Luna) ── */
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1.5px solid var(--border, rgba(184, 146, 60, 0.32));
+    background: transparent;
+    color: var(--text, var(--light, #1c1810));
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--gold, #b8923c);
+    color: var(--gold, #b8923c);
+    background: var(--hover-bg);
+    transform: translateY(-1px);
+}
+
+.theme-toggle-btn:focus-visible {
+    outline: 2px solid var(--gold, #b8923c);
+    outline-offset: 2px;
+}
+
+.theme-toggle-btn.icon-only {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.theme-toggle-btn.pill {
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+
+.theme-toggle-btn.sidebar-btn {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    background: rgba(184, 146, 60, 0.08);
+    font-size: 13.5px;
+}
+
+.theme-toggle-btn.floating-auth {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 350;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--surface, #ffffff);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+}
+
+.theme-toggle-btn .theme-icon-sun  { display: none; }
+.theme-toggle-btn .theme-icon-moon { display: inline-flex; }
+
+html[data-theme="oscuro"] .theme-toggle-btn .theme-icon-sun  { display: inline-flex; color: #facc15; }
+html[data-theme="oscuro"] .theme-toggle-btn .theme-icon-moon { display: none; }
+
+/* ── Constructor Visual en Modo Claro (chrome claro, lienzo de tienda intacto) ── */
+html[data-theme="claro"] body.builder-page {
+    --b-bg: #f5f1e8;
+    --b-panel: #ffffff;
+    --b-panel-2: #faf7f0;
+    --b-border: rgba(184, 146, 60, 0.28);
+    --b-text: #1c1810;
+    --b-label: #3a3326;
+    --b-muted: rgba(28, 24, 16, 0.62);
+    --b-hover: rgba(28, 24, 16, 0.05);
+    --b-divider: rgba(28, 24, 16, 0.08);
+    --b-gold: #b8923c;
+    --b-gold-dk: #8c6c28;
+}
+
+html[data-theme="claro"] body.builder-page .builder-canvas-wrap {
+    background-color: #ebe5d8;
+    background-image: radial-gradient(rgba(184, 146, 60, 0.25) 1px, transparent 1px);
+}
+
+html[data-theme="claro"] body.builder-page .toast-builder {
+    background: #ffffff;
+    color: #1c1810;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MODO OSCURO GLOBAL — html[data-theme="oscuro"]
+   ══════════════════════════════════════════════════════════════════════════ */
+html[data-theme="oscuro"] {
+    color-scheme: dark;
+    --bg:                 #0e1017;
+    --dark:               #0e1017;
+    --surface:            #161925;
+    --mid:                #161925;
+    --card:               #161925;
+    --lift:               #1e2233;
+    --text:               #f3efe6;
+    --light:              #f3efe6;
+    --muted:              rgba(243, 239, 230, 0.68);
+    --dim:                rgba(243, 239, 230, 0.48);
+    --gold:               #d4af5a;
+    --gold-lt:            #e6c87d;
+    --gold-dk:            #b8923c;
+    --gold-text:          #e6c87d;
+    --on-gold:            #0d0d14;
+    --border:             rgba(212, 175, 90, 0.26);
+    --accent:             #f07354;
+    --accent-lt:          rgba(240, 115, 84, 0.16);
+    --green:              #22c981;
+    --green-lt:           rgba(34, 201, 129, 0.16);
+    --blue:               #3b82f6;
+    --blue-dk:            #2563eb;
+    --shadow:             0 8px 26px rgba(0, 0, 0, 0.38);
+    --shadow-lg:          0 24px 60px rgba(0, 0, 0, 0.58);
+
+    /* Tokens semánticos de alto contraste para modo oscuro */
+    --hover-bg:           rgba(255, 255, 255, 0.06);
+    --row-hover:          rgba(255, 255, 255, 0.035);
+    --row-border:         rgba(255, 255, 255, 0.08);
+    --track-bg:           rgba(255, 255, 255, 0.09);
+    --input-bg:           #1e2233;
+    --input-border:       rgba(212, 175, 90, 0.28);
+    --placeholder:        rgba(243, 239, 230, 0.44);
+
+    --danger:             #fca5a5;
+    --danger-bg:          rgba(239, 68, 68, 0.18);
+    --danger-border:      rgba(239, 68, 68, 0.38);
+    --success:            #4ade80;
+    --success-bg:         rgba(34, 201, 129, 0.16);
+    --success-border:     rgba(34, 201, 129, 0.36);
+    --info:               #93c5fd;
+    --info-bg:            rgba(59, 130, 246, 0.18);
+    --info-border:        rgba(59, 130, 246, 0.38);
+    --warn:               #fdba74;
+    --warn-bg:            rgba(240, 115, 84, 0.18);
+    --purple:             #d8b4fe;
+    --purple-bg:          rgba(168, 85, 247, 0.18);
+    --purple-border:      rgba(168, 85, 247, 0.38);
+
+    /* Superficies especiales en modo oscuro */
+    --role-cliente-bg:    linear-gradient(135deg, #131c31, #192540);
+    --role-cliente-border:rgba(96, 165, 250, 0.34);
+    --role-empren-bg:     linear-gradient(135deg, #0f241d, #153126);
+    --role-empren-border: rgba(52, 211, 153, 0.34);
+    --hero-card-bg:       linear-gradient(135deg, #1f1b13, #171a26);
+    --estrella-bg:        linear-gradient(135deg, #241e12, #1b1710);
+    --estrella-crown-bg:  rgba(14, 16, 23, 0.78);
+    --banner-preview-bg:  linear-gradient(135deg, #1f1b13, #171a26);
+    --img-placeholder-bg: linear-gradient(135deg, #1e2233, #161925);
+}
+
+/* Fondo y textos base (sin sobreescribir tiendas públicas personalizadas) */
+html[data-theme="oscuro"] body:not(.tienda-publica-page) {
+    background: var(--bg);
+    color: var(--text);
+}
+
+html[data-theme="oscuro"] .bg-grid {
+    background-image:
+        linear-gradient(rgba(212, 175, 90, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 90, 0.06) 1px, transparent 1px);
+}
+
+/* Landing nav en modo oscuro */
+html[data-theme="oscuro"] nav:not(.navbar):not(.sb-nav):not(.store-nav):not(.builder-rail) {
+    background: rgba(14, 16, 23, 0.88);
+    border-bottom-color: var(--border);
+}
+
+/* Controles de formulario en modo oscuro (sin tocar tiendas públicas ni vista previa) */
+html[data-theme="oscuro"] body:not(.tienda-publica-page) input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="range"]),
+html[data-theme="oscuro"] body:not(.tienda-publica-page) select,
+html[data-theme="oscuro"] body:not(.tienda-publica-page) textarea {
+    background: var(--input-bg);
+    color: var(--text);
+    border-color: var(--input-border);
+}
+
+html[data-theme="oscuro"] body:not(.tienda-publica-page) input:focus:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="range"]),
+html[data-theme="oscuro"] body:not(.tienda-publica-page) select:focus,
+html[data-theme="oscuro"] body:not(.tienda-publica-page) textarea:focus {
+    border-color: var(--gold);
+}
+
+html[data-theme="oscuro"] body:not(.tienda-publica-page) input:disabled,
+html[data-theme="oscuro"] body:not(.tienda-publica-page) select:disabled,
+html[data-theme="oscuro"] body:not(.tienda-publica-page) textarea:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+html[data-theme="oscuro"] body:not(.tienda-publica-page) input::placeholder,
+html[data-theme="oscuro"] body:not(.tienda-publica-page) textarea::placeholder {
+    color: var(--placeholder);
+}
+
+html[data-theme="oscuro"] body:not(.tienda-publica-page) select option {
+    background: #161925;
+    color: #f3efe6;
+}
+
+/* Chat en modo oscuro (tanto cliente como emprendedor) */
+html[data-theme="oscuro"] body.tema-cliente,
+html[data-theme="oscuro"] body.tema-emprendedor {
+    --bg: #0e1017;
+    --surface: #161925;
+    --border: rgba(212, 175, 90, 0.24);
+    --text: #f3efe6;
+    --muted: rgba(243, 239, 230, 0.68);
+}
+
+html[data-theme="oscuro"] .conv-item.activa {
+    background: rgba(212, 175, 90, 0.14);
+}
+
+/* Tienda pública: solo adapta los controles de navegación del marketplace,
+   respetando siempre las personalizaciones propias de cada tienda */
+html[data-theme="oscuro"] body.tienda-publica-page .store-nav-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Factura impresa: siempre papel blanco limpio al imprimir */
+@media print {
+    html[data-theme="oscuro"],
+    html[data-theme="oscuro"] body,
+    html[data-theme="oscuro"] .fact-sheet {
+        background: #ffffff !important;
+        color: #111111 !important;
+    }
+    .theme-toggle-btn {
+        display: none !important;
+    }
+}

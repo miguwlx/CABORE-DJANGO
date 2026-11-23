@@ -261,8 +261,8 @@ body {
 .tab .tab-emoji { font-size: 15px; }
 
 .tab:hover:not(.tab--active) {
-  color: rgba(28,24,16,0.75);
-  background: rgba(28,24,16,0.03);
+  color: var(--light);
+  background: var(--hover-bg, rgba(28,24,16,0.03));
 }
 
 .tab--active {
@@ -304,8 +304,8 @@ body {
   text-transform: uppercase;
   margin-bottom: 8px;
 }
-.eyebrow--blue  { color: #1d4ed8; }
-.eyebrow--green { color: #0c7a4d; }
+.eyebrow--blue  { color: var(--info, #1d4ed8); }
+.eyebrow--green { color: var(--success, #0c7a4d); }
 
 .panel-title {
   font-family: 'Cormorant Garamond', serif;
@@ -327,9 +327,9 @@ body {
   display: none;
   align-items: center;
   gap: 10px;
-  background: rgba(220,38,38,0.08);
-  border: 1px solid rgba(220,38,38,0.25);
-  color: #b91c1c;
+  background: var(--danger-bg, rgba(220,38,38,0.08));
+  border: 1px solid var(--danger-border, rgba(220,38,38,0.25));
+  color: var(--danger, #b91c1c);
   padding: 11px 15px;
   border-radius: 10px;
   font-size: 13px;
@@ -356,7 +356,7 @@ body {
   width: 100%;
   padding: 13px 48px 13px 16px;
   background: var(--lift);
-  border: 1px solid rgba(28,24,16,0.10);
+  border: 1px solid var(--input-border, rgba(28,24,16,0.10));
   border-radius: 12px;
   color: var(--light);
   font-family: 'Outfit', sans-serif;
@@ -434,9 +434,53 @@ body {
   box-shadow: 0 12px 30px rgba(34,201,129,0.42);
 }
 
+/* Google Sign-In integrado y alineado con el formulario */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 16px;
+  color: var(--dim);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.google-auth-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.google-signin-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  color-scheme: light;
+}
+
+.google-signin-slot iframe {
+  display: block;
+  margin: 0 !important;
+}
+
 /* Panel footer */
 .panel-footer {
-  margin-top: 22px;
+  margin-top: 20px;
   text-align: center;
   font-size: 13px;
   color: var(--muted);

@@ -75,10 +75,10 @@ label{
 .form-group{
     margin-bottom:18px;
 }
-input,textarea{
+input,textarea,select{
     width:100%;
     padding:13px 15px;
-    background:var(--mid);
+    background:var(--input-bg, var(--mid));
     border:1.5px solid var(--border);
     border-radius:10px;
     color:var(--light);
@@ -87,12 +87,12 @@ input,textarea{
     outline:none;
     transition:border-color 0.3s,background 0.3s;
 }
-input:focus,textarea:focus{
+input:focus,textarea:focus,select:focus{
     border-color:var(--gold);
-    background:rgba(184,146,60,0.05);
+    background:rgba(184,146,60,0.06);
 }
 input::placeholder,textarea::placeholder{
-    color:rgba(28,24,16,0.28);
+    color:var(--placeholder, rgba(28,24,16,0.28));
 }
 textarea{
     resize:vertical;
@@ -118,7 +118,7 @@ textarea{
 }
 .btn-gold{
     background:linear-gradient(135deg,var(--gold),#a8832a);
-    color:#fff;
+    color:var(--on-gold, #fff);
 }
 .btn-gold:hover{
     transform:translateY(-2px);

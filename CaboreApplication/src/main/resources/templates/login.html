@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caboré — Iniciar sesión</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/CSS/login.css}">
+<th:block th:replace="~{fragments/tema :: assets}"></th:block>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+<button th:replace="~{fragments/tema :: btn-floating}"></button>
 
 <div class="noise"></div>
 <div class="bg-canvas">
@@ -131,20 +133,17 @@
           </button>
         </form>
 
+        <div class="auth-divider"><span>o continúa con</span></div>
+        <div class="google-auth-section">
+          <div class="google-signin-slot" data-google-btn="cliente"></div>
+        </div>
+
         <div class="panel-footer">
           ¿No tienes cuenta? <a href="/registro">Regístrate gratis</a>
         </div>
 
-        <div style="text-align:center;margin-top:14px">
-          <a href="olvide_password.html" style="font-size:13px;color:var(--gold,#c9a84c)">¿Olvidaste tu contraseña?</a>
-        </div>
-
-        <div style="margin-top:18px;text-align:center">
-          <div id="g_id_onload"
-               data-client_id="853981485167-vsbi9h44ktc32d6c6ppipnls9fc6iqh7.apps.googleusercontent.com"
-               data-callback="handleGoogleCredential">
-          </div>
-          <div class="g_id_signin" data-type="standard" data-shape="pill" data-width="300"></div>
+        <div style="text-align:center;margin-top:12px">
+          <a th:href="@{/olvide-password}" style="font-size:13px;color:var(--gold,#c9a84c)">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
 
@@ -199,12 +198,29 @@
           </button>
         </form>
 
+        <div class="auth-divider"><span>o continúa con</span></div>
+        <div class="google-auth-section">
+          <div class="google-signin-slot" data-google-btn="emprendedor"></div>
+        </div>
+
         <div class="panel-footer">
           ¿No tienes cuenta? <a href="/registro">Empieza a vender gratis</a>
+        </div>
+
+        <div style="text-align:center;margin-top:12px">
+          <a th:href="@{/olvide-password}" style="font-size:13px;color:var(--gold,#c9a84c)">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
 
     </div><!-- end form-panels -->
+
+    <!-- Configuración compartida de Google Identity Services (renderizado vía google-auth.js) -->
+    <div id="g_id_onload"
+         th:attr="data-client_id=${googleClientId ?: '853981485167-vsbi9h44ktc32d6c6ppipnls9fc6iqh7.apps.googleusercontent.com'}"
+         data-callback="handleGoogleCredential"
+         data-auto_prompt="false"
+         style="display:none">
+    </div>
 
     <!-- Bottom bar -->
     <div class="bottom-bar">
@@ -227,13 +243,27 @@ function switchTab(name) {
 /* ── Read URL params to show errors ─────────── */
 (function () {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('error') === '1') {
+  const errParam = params.get('error');
+  if (errParam === '1' || errParam === 'suspendida') {
     const panel = params.get('panel') || 'cliente';
-    // panel value from login.php is 'empren' or 'cliente'
     const target = panel === 'empren' ? 'emprendedor' : 'cliente';
     switchTab(target);
     const box = document.getElementById('err-' + target);
-    if (box) box.classList.add('visible');
+    if (box) {
+      if (errParam === 'suspendida') {
+        box.innerHTML = '⛔&nbsp; Esta cuenta se encuentra suspendida por el administrador.';
+      }
+      box.classList.add('visible');
+    }
+  } else if (params.get('logout') === 'true') {
+    const box = document.getElementById('err-cliente');
+    if (box) {
+      box.style.background = 'var(--success-bg)';
+      box.style.borderColor = 'var(--success-border)';
+      box.style.color = 'var(--success)';
+      box.innerHTML = '✅&nbsp; Has cerrado sesión correctamente.';
+      box.classList.add('visible');
+    }
   }
 })();
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Fragmento de recursos globales del sistema de temas (CSS + CSRF + JS) -->
+<th:block th:fragment="assets">
+    <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}">
+    <link rel="stylesheet" th:href="@{/CSS/temas.css}">
+    <script th:src="@{/JS/temas.js}"></script>
+</th:block>
+
+<!-- Botón compacto (icono sol/luna) para barras de navegación -->
+<button th:fragment="btn-icon" type="button" class="theme-toggle-btn icon-only"
+        onclick="caboreToggleTheme()" aria-label="Cambiar tema" title="Cambiar a modo oscuro">
+    <span class="theme-icon-moon" aria-hidden="true">🌙</span>
+    <span class="theme-icon-sun" aria-hidden="true">☀️</span>
+</button>
+
+<!-- Botón flotante para páginas de autenticación (login, registro, recuperación) -->
+<button th:fragment="btn-floating" type="button" class="theme-toggle-btn floating-auth"
+        onclick="caboreToggleTheme()" aria-label="Cambiar tema" title="Cambiar a modo oscuro">
+    <span class="theme-icon-moon" aria-hidden="true">🌙</span>
+    <span class="theme-icon-sun" aria-hidden="true">☀️</span>
+</button>
+
+<!-- Botón ancho para barras laterales (Administrador y Emprendedor) -->
+<button th:fragment="btn-sidebar" type="button" class="theme-toggle-btn sidebar-btn"
+        onclick="caboreToggleTheme()" aria-label="Cambiar tema" title="Cambiar a modo oscuro">
+    <span class="theme-icon-moon" aria-hidden="true">🌙</span>
+    <span class="theme-icon-sun" aria-hidden="true">☀️</span>
+    <span class="theme-toggle-label">Modo oscuro</span>
+</button>
+
+<!-- Botón tipo píldora para Constructor Visual y Tienda Pública -->
+<button th:fragment="btn-pill" type="button" class="theme-toggle-btn pill"
+        onclick="caboreToggleTheme()" aria-label="Cambiar tema" title="Cambiar a modo oscuro">
+    <span class="theme-icon-moon" aria-hidden="true">🌙</span>
+    <span class="theme-icon-sun" aria-hidden="true">☀️</span>
+    <span class="theme-toggle-label">Modo oscuro</span>
+</button>
+
+</body>
+</html>

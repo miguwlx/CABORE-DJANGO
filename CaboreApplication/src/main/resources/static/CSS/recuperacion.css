@@ -94,7 +94,7 @@ body {
   transition: color .2s;
 }
 .recover-back:hover { 
-    color: var(--gold-dk); 
+    color: var(--gold-text, var(--gold-dk)); 
 }
 
 .recover-icon {
@@ -115,7 +115,7 @@ body {
   font-weight:700;
   letter-spacing:2px; 
   text-transform:uppercase;
-  color: var(--gold-dk);
+  color: var(--gold-text, var(--gold-dk));
    margin-bottom:8px;
 }
 
@@ -127,7 +127,7 @@ body {
   margin-bottom:10px;
 }
 .recover-title em {
-     color: var(--gold-dk); 
+     color: var(--gold-text, var(--gold-dk)); 
      font-style:normal;
      }
 
@@ -158,7 +158,7 @@ body {
   width:100%; 
   padding:13px 16px;
   background:var(--lift);
-  border:1px solid rgba(28,24,16,0.10); 
+  border:1px solid var(--input-border, rgba(28,24,16,0.10)); 
   border-radius:12px;
   color:var(--light); 
   font-family:'Outfit',sans-serif; 
@@ -187,7 +187,7 @@ body {
   cursor:pointer; 
   letter-spacing:.2px;
   background: linear-gradient(135deg, var(--gold-lt), var(--gold-dk));
-  color:#fff; 
+  color: var(--on-gold, #fff); 
   box-shadow: 0 8px 24px rgba(184,146,60,0.32);
   display:flex; 
   align-items:center; 
@@ -206,7 +206,7 @@ body {
   color:var(--muted);
 }
 .recover-footer a { 
-    color:var(--gold-dk); 
+    color: var(--gold-text, var(--gold-dk)); 
     font-weight:500; 
     text-decoration:none; }
 .recover-footer a:hover { 
@@ -217,9 +217,9 @@ body {
   display:flex; 
   align-items:center; 
   gap:10px;
-  background: rgba(220,38,38,0.08); 
-  border:1px solid rgba(220,38,38,0.25);
-  color:#b91c1c; 
+  background: var(--danger-bg, rgba(220,38,38,0.08)); 
+  border:1px solid var(--danger-border, rgba(220,38,38,0.25));
+  color: var(--danger, #b91c1c); 
   padding:11px 15px; 
   border-radius:10px; 
   font-size:13px; 
