@@ -47,19 +47,6 @@ public class ImagenService {
      * (p. ej. "img/productos/prod_a1b2c3.jpg"), o null si no se envió archivo.
      */
     public String guardar(MultipartFile archivo, String subcarpeta, String prefijo) {
-        return guardarOptimizada(archivo, subcarpeta, prefijo, 1600, 1600);
-    }
-
-    /**
-     * Guarda la imagen validando firma binaria y tamaño máximo, y redimensiona
-     * automáticamente imágenes JPG/PNG que superen las dimensiones máximas indicadas
-     * para optimizar el peso en la tienda pública.
-     */
-    public String guardarOptimizada(MultipartFile archivo,
-                                    String subcarpeta,
-                                    String prefijo,
-                                    int maxAncho,
-                                    int maxAlto) {
         if (archivo == null || archivo.isEmpty()) {
             return null;
         }
@@ -89,66 +76,13 @@ public class ImagenService {
             String filename = prefijo + "_" + token + "." + ext;
             Path destinoArchivo = destinoDir.resolve(filename).normalize();
 
-            boolean escritaOptimizada = false;
-            if (("jpg".equals(ext) || "jpeg".equals(ext) || "png".equals(ext)) && maxAncho > 0 && maxAlto > 0) {
-                escritaOptimizada = intentarOptimizarImagen(archivo, destinoArchivo, ext, maxAncho, maxAlto);
-            }
-            if (!escritaOptimizada) {
-                try (InputStream in = archivo.getInputStream()) {
-                    Files.copy(in, destinoArchivo, StandardCopyOption.REPLACE_EXISTING);
-                }
+            try (InputStream in = archivo.getInputStream()) {
+                Files.copy(in, destinoArchivo, StandardCopyOption.REPLACE_EXISTING);
             }
 
             return "img/" + subcarpeta + "/" + filename;
         } catch (IOException e) {
             throw new OperacionInvalidaException("No se pudo guardar la imagen.");
-        }
-    }
-
-    private boolean intentarOptimizarImagen(MultipartFile archivo,
-                                            Path destino,
-                                            String ext,
-                                            int maxAncho,
-                                            int maxAlto) {
-        try (InputStream in = archivo.getInputStream()) {
-            java.awt.image.BufferedImage original = javax.imageio.ImageIO.read(in);
-            if (original == null) {
-                return false;
-            }
-            int w = original.getWidth();
-            int h = original.getHeight();
-            if (w <= maxAncho && h <= maxAlto) {
-                return false; // Ya cumple las dimensiones óptimas; conservar original sin pérdida
-            }
-            double escala = Math.min((double) maxAncho / w, (double) maxAlto / h);
-            int nuevoW = Math.max(1, (int) Math.round(w * escala));
-            int nuevoH = Math.max(1, (int) Math.round(h * escala));
-
-            boolean conAlpha = "png".equals(ext);
-            java.awt.image.BufferedImage redim = new java.awt.image.BufferedImage(
-                    nuevoW, nuevoH,
-                    conAlpha ? java.awt.image.BufferedImage.TYPE_INT_ARGB : java.awt.image.BufferedImage.TYPE_INT_RGB);
-            java.awt.Graphics2D g = redim.createGraphics();
-            try {
-                g.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION,
-                        java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-                g.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
-                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
-                g.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
-                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-                if (!conAlpha) {
-                    g.setColor(java.awt.Color.WHITE);
-                    g.fillRect(0, 0, nuevoW, nuevoH);
-                }
-                g.drawImage(original, 0, 0, nuevoW, nuevoH, null);
-            } finally {
-                g.dispose();
-            }
-
-            String formato = "png".equals(ext) ? "png" : "jpg";
-            return javax.imageio.ImageIO.write(redim, formato, destino.toFile());
-        } catch (Exception ignored) {
-            return false;
         }
     }
 

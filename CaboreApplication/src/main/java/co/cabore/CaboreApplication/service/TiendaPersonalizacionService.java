@@ -186,26 +186,8 @@ public class TiendaPersonalizacionService {
     }
 
     /**
-     * Descarta el borrador actual y devuelve la configuración publicada vigente.
-     */
-    @Transactional
-    public TiendaConfigDto descartarBorrador(Tienda tienda) {
-        Optional<TiendaPersonalizacion> opt = personalizaciones.findByTiendaId(tienda.getId());
-        if (opt.isPresent()) {
-            TiendaPersonalizacion tp = opt.get();
-            TiendaConfigDto publicada = construirDtoDesdeEntidad(tienda, tp, false);
-            tp.setConfigBorrador(aJson(publicada));
-            tp.setTieneBorrador(false);
-            tp.setActualizadoEn(LocalDateTime.now());
-            personalizaciones.save(tp);
-            return publicada;
-        }
-        return construirPredeterminadaDesdeTienda(tienda);
-    }
-
-    /**
      * Sube una imagen desde el constructor visual (logo, favicon, banner o galería),
-     * validando firma binaria, tamaño máximo de 5 MB y optimizando dimensiones según el uso.
+     * validando firma binaria y tamaño máximo de 5 MB.
      */
     @Transactional
     public String subirImagen(Tienda tienda, Integer usuarioId, String tipo, MultipartFile archivo) {
@@ -214,10 +196,10 @@ public class TiendaPersonalizacionService {
         }
         String tipoNorm = tipo == null ? "banner" : tipo.trim().toLowerCase();
         return switch (tipoNorm) {
-            case "logo" -> imagenService.guardarOptimizada(archivo, "logos", "logo_" + usuarioId, 512, 512);
-            case "favicon" -> imagenService.guardarOptimizada(archivo, "logos", "fav_" + usuarioId, 128, 128);
-            case "galeria" -> imagenService.guardarOptimizada(archivo, "banners", "gal_" + tienda.getId(), 1400, 1400);
-            default -> imagenService.guardarOptimizada(archivo, "banners", "banner_" + usuarioId, 1920, 900);
+            case "logo" -> imagenService.guardar(archivo, "logos", "logo_" + usuarioId);
+            case "favicon" -> imagenService.guardar(archivo, "logos", "fav_" + usuarioId);
+            case "galeria" -> imagenService.guardar(archivo, "banners", "gal_" + tienda.getId());
+            default -> imagenService.guardar(archivo, "banners", "banner_" + usuarioId);
         };
     }
 

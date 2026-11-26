@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
 <title>Caboré — Crear cuenta</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/CSS/registro.css}">
-<th:block th:replace="~{fragments/tema :: assets}"></th:block>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-<button th:replace="~{fragments/tema :: btn-floating}"></button>
 
 <div class="noise"></div>
 <div class="bg-canvas">
@@ -92,7 +92,7 @@
           <div class="strength-bar">
             <div class="strength-fill" id="strengthFill"></div>
           </div>
-          <div id="strengthLabel" style="font-size:11.5px;color:var(--muted);margin-top:4px"></div>
+          <div id="strengthLabel" style="font-size:11.5px;color:rgba(28,24,16,0.55);margin-top:4px"></div>
         </div>
 
         <div class="form-row">
@@ -117,15 +117,12 @@
           Crear mi cuenta →
         </button>
 
-        <div class="auth-divider"><span>o continúa con</span></div>
-        <div class="google-auth-section">
+        <div style="margin:18px 0;display:flex;flex-direction:column;align-items:center">
           <div id="g_id_onload"
                th:attr="data-client_id=${googleClientId ?: '853981485167-vsbi9h44ktc32d6c6ppipnls9fc6iqh7.apps.googleusercontent.com'}"
-               data-callback="handleGoogleCredential"
-               data-auto_prompt="false"
-               style="display:none">
+               data-callback="handleGoogleCredential">
           </div>
-          <div class="google-signin-slot" data-google-btn="registro"></div>
+          <div class="g_id_signin" data-type="standard" data-shape="pill" data-width="300"></div>
         </div>
 
         <p class="terms">

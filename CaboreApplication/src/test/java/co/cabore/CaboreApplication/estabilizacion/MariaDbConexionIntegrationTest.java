@@ -295,19 +295,6 @@ class MariaDbConexionIntegrationTest {
         Usuario carlosActualizado = usuarios.findByCorreo("cliente@cabore.co").orElseThrow();
         assertThat(carlosActualizado.getResetToken()).isNotNull().hasSize(64);
         assertThat(carlosActualizado.getResetExpira()).isNotNull();
-
-        // 6) Preferencia individual de tema claro/oscuro persiste por usuario en MariaDB (usuario_preferencias)
-        mvc.perform(post("/api/tema").param("tema", "oscuro").with(como(carlos)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ok").value(true))
-                .andExpect(jsonPath("$.tema").value("oscuro"));
-        mvc.perform(get("/cliente").with(como(carlos)))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("data-theme=\"oscuro\"")));
-        // Otra cuenta (María) conserva su tema claro por defecto sin verse afectada
-        mvc.perform(get("/emprendedor").with(como(maria)))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("data-theme=\"claro\"")));
     }
 
     private static RequestPostProcessor como(Usuario u) {

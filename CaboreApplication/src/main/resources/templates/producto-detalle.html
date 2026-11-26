@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/CSS/cliente.css}">
-    <th:block th:replace="~{fragments/tema :: assets}"></th:block>
 </head>
 <body>
 <div class="bg-grid"></div>
@@ -55,7 +54,7 @@
                 <span class="modal-price-old" th:if="${producto.tieneOferta}"
                       th:text="'$' + ${#numbers.formatDecimal(producto.precio, 1, 'POINT', 0, 'COMMA')}">$0</span>
                 <span class="modal-stock" th:text="${producto.stock > 0} ? 'Stock: ' + ${producto.stock} : 'Agotado'"
-                      th:style="${producto.stock > 0} ? '' : 'color:var(--danger);background:var(--danger-bg)'"></span>
+                      th:style="${producto.stock > 0} ? '' : 'color:#b91c1c;background:rgba(220,38,38,.10)'"></span>
             </div>
 
             <p class="modal-desc" th:text="${producto.descripcion} ?: 'Sin descripción.'">Descripción</p>

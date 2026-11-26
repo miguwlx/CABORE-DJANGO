@@ -1,3 +1,21 @@
 config_correo.php
 vendor/
 *.class
+
+CaboreApplication/uploads/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+*.p12
+
+# Archivos generados y respaldos
+**/target/
+**/_backups/
+**/vendor/
+**/node_modules/
+**/.venv/

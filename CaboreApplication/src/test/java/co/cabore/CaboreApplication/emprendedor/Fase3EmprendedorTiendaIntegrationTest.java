@@ -522,20 +522,7 @@ class Fase3EmprendedorTiendaIntegrationTest {
                 .andExpect(content().string(containsString("Nacimos en 2020 apoyando a más de 30 familias artesanas.")))
                 .andExpect(content().string(containsString("Camila Soto")));
 
-        // 6) Descartar un nuevo borrador sin afectar lo publicado + RESTAURAR valores predeterminados
-        mvc.perform(post("/emprendedor/constructor/borrador")
-                        .contentType("application/json")
-                        .content(jsonBorrador.replace("Eslogan en borrador privado", "Borrador Descartable"))
-                        .with(como(emp1)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.tieneBorrador").value(true));
-
-        mvc.perform(post("/emprendedor/constructor/descartar-borrador").with(como(emp1)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ok").value(true))
-                .andExpect(jsonPath("$.tieneBorrador").value(false));
-        assertThat(personalizaciones.findByTiendaId(tienda1.getId()).orElseThrow().isTieneBorrador()).isFalse();
-
+        // 6) RESTAURAR valores predeterminados
         mvc.perform(post("/emprendedor/constructor/restaurar").with(como(emp1)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ok").value(true));

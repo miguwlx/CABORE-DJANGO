@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Constructor Visual — ' + ${tienda.nombre} + ' | Caboré'">Constructor de Tienda — Caboré</title>
-    <th:block th:replace="~{fragments/tema :: assets}"></th:block>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -15,10 +16,7 @@
             --b-panel-2: #1e2233;
             --b-border: rgba(255,255,255,0.10);
             --b-text: #f3f4f6;
-            --b-label: #d1d5db;
             --b-muted: #9ca3af;
-            --b-hover: rgba(255,255,255,0.05);
-            --b-divider: rgba(255,255,255,0.06);
             --b-gold: #c9a84c;
             --b-gold-dk: #a8832a;
             --b-green: #10b981;
@@ -58,9 +56,9 @@
             padding: 7px 12px; border-radius: 8px; border: 1px solid var(--b-border);
             background: var(--b-panel-2); transition: all .15s;
         }
-        .back-btn:hover { color: var(--b-text); border-color: var(--b-gold); }
+        .back-btn:hover { color: #fff; border-color: var(--b-gold); }
         .builder-brand {
-            font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 800; color: var(--b-text);
+            font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 800; color: #fff;
         }
         .builder-brand span { color: var(--b-gold); }
 
@@ -91,7 +89,7 @@
             color: var(--b-text); display: inline-flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all .15s;
         }
-        .action-btn:hover:not(:disabled) { border-color: var(--b-gold); color: var(--b-text); }
+        .action-btn:hover:not(:disabled) { border-color: var(--b-gold); color: #fff; }
         .action-btn:disabled { opacity: .45; cursor: not-allowed; }
         .action-btn.primary {
             background: linear-gradient(135deg, var(--b-gold), var(--b-gold-dk));
@@ -127,7 +125,7 @@
             font-size: 10px; font-weight: 700; text-align: center; transition: all .15s;
         }
         .rail-btn i { font-size: 16px; }
-        .rail-btn:hover { color: var(--b-text); background: var(--b-hover); }
+        .rail-btn:hover { color: #fff; background: rgba(255,255,255,0.04); }
         .rail-btn.active {
             background: rgba(201,168,76,0.14);
             border-color: rgba(201,168,76,0.45);
@@ -146,7 +144,7 @@
         .ctrl-pane { display: none; }
         .ctrl-pane.active { display: block; }
         .pane-title {
-            font-size: 16px; font-weight: 800; margin-bottom: 4px; color: var(--b-text);
+            font-size: 16px; font-weight: 800; margin-bottom: 4px; color: #fff;
             display: flex; align-items: center; gap: 8px;
         }
         .pane-sub { font-size: 12px; color: var(--b-muted); margin-bottom: 18px; line-height: 1.45; }
@@ -166,12 +164,12 @@
         .ctrl-field:last-child { margin-bottom: 0; }
         .ctrl-label {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 12px; font-weight: 600; color: var(--b-label); margin-bottom: 6px;
+            font-size: 12px; font-weight: 600; color: #d1d5db; margin-bottom: 6px;
         }
         .ctrl-input, .ctrl-select, .ctrl-textarea {
             width: 100%; padding: 9px 11px; border-radius: 8px;
             border: 1px solid var(--b-border); background: var(--b-bg);
-            color: var(--b-text); font-family: inherit; font-size: 13px;
+            color: #fff; font-family: inherit; font-size: 13px;
         }
         .ctrl-textarea { resize: vertical; min-height: 64px; }
         .ctrl-input:focus, .ctrl-select:focus, .ctrl-textarea:focus {
@@ -190,7 +188,7 @@
             width: 28px; height: 28px; border: none; border-radius: 6px;
             background: transparent; cursor: pointer; padding: 0;
         }
-        .color-item span { font-size: 11.5px; font-weight: 600; color: var(--b-label); }
+        .color-item span { font-size: 11.5px; font-weight: 600; color: #d1d5db; }
 
         /* Tarjetas de selección de plantilla */
         .template-cards {
@@ -198,7 +196,7 @@
         }
         .tpl-card {
             padding: 10px; border-radius: 10px; border: 1.5px solid var(--b-border);
-            background: var(--b-bg); cursor: pointer; text-align: left; color: var(--b-text);
+            background: var(--b-bg); cursor: pointer; text-align: left; color: #fff;
             transition: all .15s;
         }
         .tpl-card:hover { border-color: rgba(201,168,76,0.5); }
@@ -214,7 +212,7 @@
         /* Switches e ítems de secciones */
         .switch-row {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 8px 0; border-bottom: 1px solid var(--b-divider);
+            padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
             font-size: 12.5px;
         }
         .switch-row:last-child { border-bottom: none; }
@@ -350,26 +348,8 @@
             gap: var(--p-gap, 18px);
             grid-template-columns: repeat(var(--p-cols, 3), minmax(0, 1fr));
         }
-        .pv-grid.dist-detallada {
-            grid-template-columns: 1fr;
-        }
-        .pv-grid.dist-detallada .pv-card {
-            flex-direction: row; align-items: stretch;
-        }
-        .pv-grid.dist-detallada .pv-card-img {
-            width: 190px; height: auto; min-height: 165px; flex-shrink: 0;
-        }
-        .pv-grid.dist-compacta {
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        }
         .preview-viewport.device-mobile .pv-grid {
             grid-template-columns: 1fr !important;
-        }
-        .preview-viewport.device-mobile .pv-grid.dist-detallada .pv-card {
-            flex-direction: column;
-        }
-        .preview-viewport.device-mobile .pv-grid.dist-detallada .pv-card-img {
-            width: 100%; height: 150px;
         }
         .pv-card {
             background: var(--p-surface, #161625);
@@ -380,34 +360,6 @@
         }
         .pv-card.tarjeta-minimal { background: transparent; border: none; box-shadow: none; }
         .pv-card.tarjeta-bordeada { border: 2px solid var(--p-brand, #c9a84c); }
-        .pv-card.tarjeta-cristal {
-            background: color-mix(in srgb, var(--p-surface, #ffffff) 74%, transparent);
-            backdrop-filter: blur(12px);
-        }
-        .pv-hero.diseno-dividida {
-            display: grid; grid-template-columns: 1.15fr 0.85fr;
-            background: var(--p-surface, #161625);
-        }
-        .pv-hero.diseno-editorial {
-            background: var(--p-surface, #161625);
-            border-left: 6px solid var(--p-brand, #c9a84c);
-        }
-        .pv-hero.diseno-minimal {
-            background: transparent; border: none; box-shadow: none;
-        }
-        .preview-viewport.device-mobile .pv-hero.diseno-dividida {
-            grid-template-columns: 1fr;
-        }
-        .sec-builder-item.dragging { opacity: .45; border-color: var(--b-gold); }
-        .sec-builder-item.drag-over { border-top: 2px solid var(--b-gold); }
-        .img-mini-preview {
-            margin-top: 6px; display: flex; align-items: center; gap: 10px;
-            font-size: 11px; color: var(--b-muted);
-        }
-        .img-mini-preview img {
-            width: 42px; height: 42px; border-radius: 8px; object-fit: cover;
-            border: 1px solid var(--b-border);
-        }
         .pv-card-img {
             height: 170px; background: rgba(128,128,128,0.12); position: relative;
             display: flex; align-items: center; justify-content: center; font-size: 36px;
@@ -460,7 +412,7 @@
         }
     </style>
 </head>
-<body class="builder-page">
+<body>
 
 <!-- ══════════════════════ BARRA SUPERIOR DEL CONSTRUCTOR ══════════════════════ -->
 <header class="builder-topbar">
@@ -491,16 +443,11 @@
     </div>
 
     <div class="topbar-right">
-        <button th:replace="~{fragments/tema :: btn-icon}"></button>
         <button type="button" class="action-btn" id="btnDeshacer" onclick="deshacerCambio()" disabled title="Deshacer último cambio">
             <i class="fas fa-rotate-left"></i> Deshacer
         </button>
         <button type="button" class="action-btn" onclick="restaurarPredeterminados()" title="Restaurar diseño original">
             <i class="fas fa-arrow-rotate-right"></i> Restaurar
-        </button>
-        <button type="button" class="action-btn" onclick="descartarBorrador()" id="btnDescartarBorrador"
-                th:style="${tieneBorrador} ? '' : 'display:none'" title="Descartar borrador y volver a lo publicado">
-            <i class="fas fa-trash-can"></i> Descartar borrador
         </button>
         <button type="button" class="action-btn" onclick="guardarBorrador()" id="btnBorrador">
             <i class="far fa-floppy-disk"></i> Guardar borrador
@@ -572,12 +519,10 @@
                 <div class="ctrl-field">
                     <label class="ctrl-label">Logo de la tienda (JPG, PNG, WEBP, GIF)</label>
                     <input type="file" class="ctrl-input" accept="image/*" onchange="subirArchivoConstructor('logo', this)">
-                    <div class="img-mini-preview" id="previewMiniLogo"></div>
                 </div>
                 <div class="ctrl-field">
                     <label class="ctrl-label">Favicon (icono de pestaña)</label>
                     <input type="file" class="ctrl-input" accept="image/*" onchange="subirArchivoConstructor('favicon', this)">
-                    <div class="img-mini-preview" id="previewMiniFavicon"></div>
                 </div>
             </div>
 
@@ -757,7 +702,6 @@
                         <option value="centrado">Centrado editorial</option>
                         <option value="lateral">Lateral moderno</option>
                         <option value="minimal">Minimalista compacto</option>
-                        <option value="hero_integrado">Hero integrado</option>
                     </select>
                 </div>
                 <div class="ctrl-field">
@@ -781,7 +725,6 @@
                 <div class="ctrl-field">
                     <label class="ctrl-label">Subir imagen de portada (Banner)</label>
                     <input type="file" class="ctrl-input" accept="image/*" onchange="subirArchivoConstructor('banner', this)">
-                    <div class="img-mini-preview" id="previewMiniBanner"></div>
                 </div>
                 <div class="ctrl-field">
                     <label class="ctrl-label">Diseño de portada</label>
@@ -1041,7 +984,6 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]')?.content
 const URL_BORRADOR  = /*[[@{/emprendedor/constructor/borrador}]]*/ '/emprendedor/constructor/borrador';
 const URL_PUBLICAR  = /*[[@{/emprendedor/constructor/publicar}]]*/ '/emprendedor/constructor/publicar';
 const URL_RESTAURAR = /*[[@{/emprendedor/constructor/restaurar}]]*/ '/emprendedor/constructor/restaurar';
-const URL_DESCARTAR = /*[[@{/emprendedor/constructor/descartar-borrador}]]*/ '/emprendedor/constructor/descartar-borrador';
 const URL_IMAGEN    = /*[[@{/emprendedor/constructor/imagen}]]*/ '/emprendedor/constructor/imagen';
 
 const RAW_ACTIVA    = /*[[${configActivaJson}]]*/ '{}';
@@ -1180,43 +1122,8 @@ function poblarControlesDesdeEstado() {
     });
 
     renderizarControlesSecciones();
-    renderizarMiniPreviewsImagenes();
     renderizarThumbsGaleria();
     renderizarListaTestimonios();
-}
-
-function renderizarMiniPreviewsImagenes() {
-    const mapa = [
-        { el: 'previewMiniLogo',    ruta: estadoActual.logo,    label: 'Logo actual' },
-        { el: 'previewMiniFavicon', ruta: estadoActual.favicon, label: 'Favicon actual' },
-        { el: 'previewMiniBanner',  ruta: estadoActual.banner,  label: 'Portada actual' }
-    ];
-    mapa.forEach(item => {
-        const cont = document.getElementById(item.el);
-        if (!cont) return;
-        const url = rutaPublicaJs(item.ruta);
-        cont.innerHTML = url
-            ? `<img src="${escAttr(url)}" alt="${item.label}"><span>${item.label} cargado</span>`
-            : '';
-    });
-}
-
-let dragSeccionIdx = null;
-function iniciarDragSeccion(idx, e) {
-    dragSeccionIdx = idx;
-    e.currentTarget.classList.add('dragging');
-}
-function soltarSobreSeccion(targetIdx, e) {
-    e.preventDefault();
-    e.currentTarget.classList.remove('drag-over');
-    if (dragSeccionIdx === null || dragSeccionIdx === targetIdx) return;
-    registrarUndo();
-    const arr = estadoActual.secciones;
-    const [movida] = arr.splice(dragSeccionIdx, 1);
-    arr.splice(targetIdx, 0, movida);
-    dragSeccionIdx = null;
-    renderizarControlesSecciones();
-    renderizarVistaPrevia();
 }
 
 function renderizarControlesSecciones() {
@@ -1225,15 +1132,9 @@ function renderizarControlesSecciones() {
     if (!Array.isArray(estadoActual.secciones)) estadoActual.secciones = [];
 
     cont.innerHTML = estadoActual.secciones.map((s, idx) => `
-        <div class="sec-builder-item" id="sec-item-${idx}" draggable="true"
-             ondragstart="iniciarDragSeccion(${idx}, event)"
-             ondragend="this.classList.remove('dragging')"
-             ondragover="event.preventDefault(); this.classList.add('drag-over')"
-             ondragleave="this.classList.remove('drag-over')"
-             ondrop="soltarSobreSeccion(${idx}, event)">
+        <div class="sec-builder-item" id="sec-item-${idx}">
             <div class="sec-builder-top">
-                <label class="sec-builder-name" style="cursor:grab">
-                    <span style="opacity:.45;font-size:11px" title="Arrastra para reordenar">⋮⋮</span>
+                <label class="sec-builder-name">
                     <input type="checkbox" ${s.visible ? 'checked' : ''}
                            onchange="alternarSeccion(${idx}, this.checked)">
                     <span>${esc(s.nombre || s.id)}</span>
@@ -1372,9 +1273,8 @@ async function subirArchivoConstructor(tipo, input) {
                 estadoActual.galeria.push(data.ruta);
                 renderizarThumbsGaleria();
             }
-            renderizarMiniPreviewsImagenes();
             renderizarVistaPrevia();
-            toast('Imagen subida y optimizada correctamente');
+            toast('Imagen subida correctamente');
         } else {
             toast(data.error || 'No se pudo subir la imagen');
         }
@@ -1394,37 +1294,12 @@ async function guardarBorrador() {
         const data = await res.json();
         if (data.ok) {
             marcarEstadoCambios('draft', 'Borrador guardado');
-            const btnDesc = document.getElementById('btnDescartarBorrador');
-            if (btnDesc) btnDesc.style.display = '';
             toast('📝 ' + (data.mensaje || 'Borrador guardado en MariaDB'));
         } else {
             toast(data.error || 'Error al guardar borrador');
         }
     } catch (e) {
         toast('Error de conexión al guardar borrador');
-    }
-}
-
-async function descartarBorrador() {
-    if (!confirm('¿Descartar el borrador actual y volver a la última versión publicada?')) return;
-    try {
-        const res = await fetch(URL_DESCARTAR, {
-            method: 'POST',
-            headers: { [CSRF_HEADER]: CSRF_TOKEN }
-        });
-        const data = await res.json();
-        if (data.ok && data.config) {
-            registrarUndo();
-            estadoActual = data.config;
-            poblarControlesDesdeEstado();
-            renderizarVistaPrevia();
-            marcarEstadoCambios('clean', 'Publicado al día');
-            const btnDesc = document.getElementById('btnDescartarBorrador');
-            if (btnDesc) btnDesc.style.display = 'none';
-            toast('🗑️ ' + (data.mensaje || 'Borrador descartado'));
-        }
-    } catch (e) {
-        toast('Error de conexión al descartar el borrador');
     }
 }
 
@@ -1439,8 +1314,6 @@ async function publicarCambios() {
         if (data.ok) {
             if (data.config) estadoActual = data.config;
             marcarEstadoCambios('clean', 'Publicado al día');
-            const btnDesc = document.getElementById('btnDescartarBorrador');
-            if (btnDesc) btnDesc.style.display = 'none';
             toast('🚀 ' + (data.mensaje || 'Cambios publicados en tu tienda'));
         } else {
             toast(data.error || 'Error al publicar cambios');
@@ -1521,7 +1394,7 @@ function renderizarVistaPrevia() {
                         <h3>${esc(s.titulo || s.nombre)}</h3>
                         ${s.subtitulo ? `<p>${esc(s.subtitulo)}</p>` : ''}
                     </div>
-                    <div class="pv-grid dist-${escAttr(c.distribucionProductos || 'cuadricula')}">${tarjetasHtml}</div>
+                    <div class="pv-grid">${tarjetasHtml}</div>
                 </section>
             `;
         }
@@ -1624,53 +1497,6 @@ function renderizarVistaPrevia() {
         return '';
     }).join('');
 
-    const heroContenidoHtml = `
-        <div class="pv-hero-inner" style="${alignStyle};${bannerUrl && c.portadaDiseno === 'impacto' ? 'color:#fff' : ''}">
-            ${c.portadaSubtitulo ? `<div class="pv-hero-sub">${esc(c.portadaSubtitulo)}</div>` : ''}
-            <div class="pv-hero-title">${esc(c.portadaTitulo || c.nombre || 'Bienvenido')}</div>
-            ${c.portadaDescripcion ? `<div class="pv-hero-text" style="${c.portadaAlineacion === 'centro' ? 'margin-left:auto;margin-right:auto' : ''}">${esc(c.portadaDescripcion)}</div>` : ''}
-            <div style="display:inline-flex;gap:10px;flex-wrap:wrap">
-                ${c.portadaBotonTexto ? `<span class="pv-btn-cta">${esc(c.portadaBotonTexto)} →</span>` : ''}
-                ${c.portadaBoton2Texto ? `<span class="pv-btn-cta" style="background:transparent;border:1.5px solid currentColor;color:inherit">${esc(c.portadaBoton2Texto)}</span>` : ''}
-            </div>
-        </div>
-    `;
-
-    const heroHtml = c.portadaDiseno === 'dividida'
-        ? `<div class="pv-hero diseno-dividida">
-               ${heroContenidoHtml}
-               <div style="min-height:220px;background:rgba(128,128,128,.12);display:flex;align-items:center;justify-content:center;font-size:48px">
-                   ${bannerUrl ? `<img src="${escAttr(bannerUrl)}" style="width:100%;height:100%;object-fit:cover">` : '🛍️'}
-               </div>
-           </div>`
-        : `<div class="pv-hero diseno-${escAttr(c.portadaDiseno || 'impacto')}">
-               ${bannerUrl && c.portadaDiseno === 'impacto' ? `<img src="${escAttr(bannerUrl)}" class="pv-hero-bg"><div class="pv-hero-overlay"></div>` : ''}
-               ${heroContenidoHtml}
-           </div>`;
-
-    const footerHtml = c.estiloPie === 'columnas'
-        ? `<footer class="pv-footer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));align-items:start">
-               <div>
-                   <strong style="color:var(--p-brand)">${esc(c.nombre || 'Mi tienda')}</strong>
-                   <div style="opacity:.75;margin-top:4px">${esc(c.eslogan || '')}</div>
-               </div>
-               <div>
-                   <strong style="font-size:.75rem;text-transform:uppercase;opacity:.7">Navegación</strong>
-                   <div style="margin-top:6px;display:flex;flex-direction:column;gap:4px"><span>🛍️ Catálogo</span><span>📖 Historia</span><span>📍 Contacto</span></div>
-               </div>
-               <div>
-                   <strong style="font-size:.75rem;text-transform:uppercase;opacity:.7">Horario</strong>
-                   <div style="margin-top:6px;opacity:.8">${esc(c.horarioAtencion || 'Caboré Marketplace')}</div>
-               </div>
-           </footer>`
-        : `<footer class="pv-footer" style="${c.estiloPie === 'minimalista' ? 'justify-content:center;text-align:center' : ''}">
-               <div>
-                   <strong>${esc(c.nombre || 'Mi tienda')}</strong>
-                   ${c.estiloPie !== 'minimalista' && c.eslogan ? `<span style="opacity:.7;margin-left:8px">· ${esc(c.eslogan)}</span>` : ''}
-               </div>
-               <div style="opacity:.7">© 2026 · Caboré Marketplace</div>
-           </footer>`;
-
     vp.innerHTML = `
         <header class="pv-header">
             <div class="pv-brand-row ${c.estiloEncabezado === 'centrado' ? 'centrado' : ''}">
@@ -1678,17 +1504,35 @@ function renderizarVistaPrevia() {
                 <div>
                     ${c.eslogan ? `<div class="pv-eslogan">${esc(c.eslogan)}</div>` : ''}
                     <div class="pv-title">${esc(c.nombre || 'Mi tienda')}</div>
-                    ${c.estiloEncabezado !== 'minimal' ? `<div class="pv-desc">${esc(c.descripcion || '')}</div>` : ''}
+                    <div class="pv-desc">${esc(c.descripcion || '')}</div>
                 </div>
             </div>
-            ${heroHtml}
+
+            <div class="pv-hero">
+                ${bannerUrl && c.portadaDiseno === 'impacto' ? `<img src="${escAttr(bannerUrl)}" class="pv-hero-bg"><div class="pv-hero-overlay"></div>` : ''}
+                <div class="pv-hero-inner" style="${alignStyle};${bannerUrl && c.portadaDiseno === 'impacto' ? 'color:#fff' : ''}">
+                    ${c.portadaSubtitulo ? `<div class="pv-hero-sub">${esc(c.portadaSubtitulo)}</div>` : ''}
+                    <div class="pv-hero-title">${esc(c.portadaTitulo || c.nombre || 'Bienvenido')}</div>
+                    ${c.portadaDescripcion ? `<div class="pv-hero-text" style="${c.portadaAlineacion === 'centro' ? 'margin-left:auto;margin-right:auto' : ''}">${esc(c.portadaDescripcion)}</div>` : ''}
+                    <div style="display:inline-flex;gap:10px;flex-wrap:wrap">
+                        ${c.portadaBotonTexto ? `<span class="pv-btn-cta">${esc(c.portadaBotonTexto)} →</span>` : ''}
+                        ${c.portadaBoton2Texto ? `<span class="pv-btn-cta" style="background:transparent;border:1.5px solid currentColor;color:inherit">${esc(c.portadaBoton2Texto)}</span>` : ''}
+                    </div>
+                </div>
+            </div>
         </header>
 
         <div class="pv-main">
             ${bloquesHtml}
         </div>
 
-        ${footerHtml}
+        <footer class="pv-footer">
+            <div>
+                <strong>${esc(c.nombre || 'Mi tienda')}</strong>
+                ${c.estiloPie !== 'minimalista' && c.eslogan ? `<span style="opacity:.7;margin-left:8px">· ${esc(c.eslogan)}</span>` : ''}
+            </div>
+            <div style="opacity:.7">© 2026 · Caboré Marketplace</div>
+        </footer>
     `;
 }
 
