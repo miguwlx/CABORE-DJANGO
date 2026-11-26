@@ -230,7 +230,7 @@ nav {
   transition: all 0.3s;
   display: inline-block;
 }
-.btn-hero-secondary:hover { background: var(--hover-bg, rgba(28,24,16,0.04)); }
+.btn-hero-secondary:hover { background: rgba(28,24,16,0.04); }
 
 /* Hero stats */
 .hero-stats {
@@ -484,14 +484,12 @@ nav {
 .role-card:hover { transform: translateY(-4px); }
 
 .role-card-cliente {
-  background: var(--role-cliente-bg, linear-gradient(135deg, #eaf1fe, #f7fafe));
-  border: 1px solid var(--role-cliente-border, rgba(37,99,235,0.22));
-  color: var(--light);
+  background: linear-gradient(135deg, #eaf1fe, #f7fafe);
+  border: 1px solid rgba(37,99,235,0.22);
 }
 .role-card-empren {
-  background: var(--role-empren-bg, linear-gradient(135deg, #e7f7ef, #f6fcf9));
-  border: 1px solid var(--role-empren-border, rgba(15,157,99,0.22));
-  color: var(--light);
+  background: linear-gradient(135deg, #e7f7ef, #f6fcf9);
+  border: 1px solid rgba(15,157,99,0.22);
 }
 
 .role-card::before {
@@ -503,10 +501,10 @@ nav {
   pointer-events: none;
 }
 .role-card-cliente::before {
-  background: radial-gradient(circle, rgba(37,99,235,0.14), transparent 70%);
+  background: radial-gradient(circle, rgba(37,99,235,0.10), transparent 70%);
 }
 .role-card-empren::before {
-  background: radial-gradient(circle, rgba(15,157,99,0.14), transparent 70%);
+  background: radial-gradient(circle, rgba(15,157,99,0.10), transparent 70%);
 }
 
 .role-badge {
@@ -520,14 +518,14 @@ nav {
   margin-bottom: 20px;
 }
 .badge-cliente {
-  background: var(--info-bg, rgba(37,99,235,0.12));
-  border: 1px solid var(--info-border, rgba(37,99,235,0.28));
-  color: var(--info, #1d4ed8);
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.28);
+  color: #1d4ed8;
 }
 .badge-empren {
-  background: var(--success-bg, rgba(15,157,99,0.12));
-  border: 1px solid var(--success-border, rgba(15,157,99,0.28));
-  color: var(--success, #0c7a4d);
+  background: rgba(15,157,99,0.12);
+  border: 1px solid rgba(15,157,99,0.28);
+  color: #0c7a4d;
 }
 
 .role-icon { font-size: 52px; display: block; margin-bottom: 20px; }
@@ -536,7 +534,6 @@ nav {
   font-family: 'Cormorant Garamond', serif;
   font-size: 32px;
   font-weight: 700;
-  color: var(--light);
   margin-bottom: 12px;
 }
 
@@ -569,8 +566,8 @@ nav {
   font-size: 10px;
   flex-shrink: 0;
 }
-.check-blue { background: var(--info-bg, rgba(37,99,235,0.14)); color: var(--info, #1d4ed8); }
-.check-green { background: var(--success-bg, rgba(15,157,99,0.14)); color: var(--success, #0c7a4d); }
+.check-blue { background: rgba(37,99,235,0.14); color: #1d4ed8; }
+.check-green { background: rgba(15,157,99,0.14); color: #0c7a4d; }
 
 .btn-role-cliente {
   display: inline-block;
@@ -670,7 +667,7 @@ nav {
   text-decoration: none;
   transition: all 0.3s;
 }
-.btn-cta-secondary:hover { background: var(--hover-bg, rgba(28,24,16,0.04)); }
+.btn-cta-secondary:hover { background: rgba(28,24,16,0.04); }
 
 /* ── FOOTER ── */
 footer {

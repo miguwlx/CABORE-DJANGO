@@ -114,23 +114,6 @@ public class TiendaConstructorController {
         }
     }
 
-    @PostMapping("/descartar-borrador")
-    @ResponseBody
-    public Map<String, Object> descartarBorrador(@AuthenticationPrincipal UsuarioPrincipal yo) {
-        try {
-            Tienda tienda = emprendedorService.obtenerOCrearTienda(yo.getId());
-            TiendaConfigDto publicada = personalizacionService.descartarBorrador(tienda);
-            return Map.of(
-                    "ok", true,
-                    "tieneBorrador", false,
-                    "mensaje", "Borrador descartado. Se cargó la versión publicada.",
-                    "config", publicada
-            );
-        } catch (RuntimeException e) {
-            return errorJson(e, "No se pudo descartar el borrador.");
-        }
-    }
-
     @PostMapping("/imagen")
     @ResponseBody
     public Map<String, Object> subirImagen(

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </th:block>
-    <th:block th:replace="~{fragments/tema :: assets}"></th:block>
     <style>
         body.tema-emprendedor {
             --bg: #faf7f0;
@@ -55,7 +54,7 @@
             border-bottom:1px solid var(--border);cursor:pointer;text-decoration:none;color:inherit;
             transition:background 0.15s;
         }
-        .conv-item:hover{background:var(--hover-bg, rgba(0,0,0,0.03));}
+        .conv-item:hover{background:rgba(0,0,0,0.03);}
         .conv-item.activa{background:rgba(184,146,60,0.08);}
         .conv-avatar{
             width:42px;height:42px;border-radius:50%;
@@ -150,9 +149,6 @@
 <div class="topbar">
     <a th:href="@{${volverA}}">← Volver</a>
     <h1>💬 Mensajes</h1>
-    <div style="margin-left:auto">
-        <button th:replace="~{fragments/tema :: btn-pill}"></button>
-    </div>
 </div>
 
 <div class="chat-layout">

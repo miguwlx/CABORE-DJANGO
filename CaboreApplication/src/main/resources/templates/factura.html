@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/CSS/cliente.css}">
-    <th:block th:replace="~{fragments/tema :: assets}"></th:block>
     <style>
         .fact-sheet { max-width: 860px; margin: 26px auto 60px; background: var(--surface);
                       border: 1px solid var(--border); border-radius: var(--radius);
@@ -54,7 +53,6 @@
            class="back-link" style="align-self:center"
            th:text="${volverTexto != null} ? ${volverTexto} : '← Volver al pedido'">← Volver al pedido</a>
         <span style="flex:1"></span>
-        <button th:replace="~{fragments/tema :: btn-pill}"></button>
         <button class="price-apply" onclick="window.print()"><i class="fas fa-print"></i> Imprimir / Guardar PDF</button>
     </div>
 

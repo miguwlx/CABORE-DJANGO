@@ -9,7 +9,6 @@
         <input type="text" name="q" placeholder="Buscar productos o tiendas…" autocomplete="off">
     </form>
     <div class="nav-actions">
-        <button th:replace="~{fragments/tema :: btn-icon}"></button>
         <a class="nav-btn" th:href="@{/chat}" title="Mensajes">
             <i class="far fa-comment-dots"></i>
             <span class="cart-badge" th:if="${mensajesNoLeidosCount != null and mensajesNoLeidosCount > 0}"

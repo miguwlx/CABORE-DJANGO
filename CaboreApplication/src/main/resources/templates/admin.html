@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${temaActual},data-user-id=${temaUsuarioId}">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/CSS/emprendedor.css}">
     <link rel="stylesheet" th:href="@{/CSS/admin.css}">
-    <th:block th:replace="~{fragments/tema :: assets}"></th:block>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <style>
         .prod-table { width: 100%; border-collapse: collapse; }
         .prod-table th {
@@ -16,11 +17,11 @@
             border-bottom: 1px solid var(--border);
         }
         .prod-table td {
-            padding: 14px; border-bottom: 1px solid var(--row-border, rgba(28,24,16,0.07));
+            padding: 14px; border-bottom: 1px solid rgba(28,24,16,0.07);
             font-size: 14px; vertical-align: middle;
         }
         .prod-table tr:last-child td { border-bottom: none; }
-        .prod-table tr:hover td { background: var(--row-hover, rgba(28,24,16,0.025)); }
+        .prod-table tr:hover td { background: rgba(28,24,16,0.025); }
         .prod-thumb {
             width: 48px; height: 48px; border-radius: 10px; object-fit: cover;
             background: var(--mid); display: flex; align-items: center; justify-content: center;
@@ -31,9 +32,9 @@
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
             transition: opacity 0.3s;
         }
-        .flash-ok  { background: var(--success-bg, rgba(15,157,99,0.10)); border: 1px solid var(--success-border, rgba(15,157,99,0.28)); color: var(--success, #0c7a4d); }
-        .flash-err { background: var(--danger-bg, rgba(220,38,38,0.10)); border: 1px solid var(--danger-border, rgba(220,38,38,0.25)); color: var(--danger, #b91c1c); }
-        .btn-logout { color: var(--danger, #b91c1c); }
+        .flash-ok  { background: rgba(15,157,99,0.10); border: 1px solid rgba(15,157,99,0.28); color: #0c7a4d; }
+        .flash-err { background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.25); color: #b91c1c; }
+        .btn-logout { color: #b91c1c; }
         .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 900px) {
             .sidebar { position: static; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
@@ -86,7 +87,6 @@
     </nav>
 
     <div class="sb-bottom">
-        <button th:replace="~{fragments/tema :: btn-sidebar}"></button>
         <form th:action="@{/logout}" method="post" style="margin:0">
             <button type="submit" class="btn-logout">
                 <span>🚪</span> Cerrar sesión
@@ -127,7 +127,7 @@
             <div class="stat-card">
                 <div class="stat-label">Productos por verificar</div>
                 <div class="stat-value"
-                     th:style="${resumen.productosPendientes() > 0} ? 'color:var(--danger)' : 'color:inherit'"
+                     th:style="${resumen.productosPendientes() > 0} ? 'color:#b91c1c' : 'color:inherit'"
                      th:text="${resumen.productosPendientes()}">0</div>
                 <div class="stat-sub" th:text="'de ' + ${resumen.totalProductos()} + ' productos totales'">de 0 productos totales</div>
             </div>
@@ -151,21 +151,21 @@
                     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Pendientes</div>
                     <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold)" th:text="${desglose.pedidosPendientes()}">0</div>
                 </div>
-                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--info-bg)">
+                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(59,130,246,0.06)">
                     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Confirmados</div>
-                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--info)" th:text="${desglose.pedidosConfirmados()}">0</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#1d4ed8" th:text="${desglose.pedidosConfirmados()}">0</div>
                 </div>
-                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--warn-bg)">
+                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(226,96,63,0.06)">
                     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">En camino</div>
-                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--warn)" th:text="${desglose.pedidosEnviados()}">0</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#b4441f" th:text="${desglose.pedidosEnviados()}">0</div>
                 </div>
-                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--success-bg)">
+                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(15,157,99,0.08)">
                     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Entregados</div>
-                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--success)" th:text="${desglose.pedidosEntregados()}">0</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#0c7a4d" th:text="${desglose.pedidosEntregados()}">0</div>
                 </div>
-                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--danger-bg)">
+                <div style="padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(220,38,38,0.06)">
                     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Cancelados</div>
-                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--danger)" th:text="${desglose.pedidosCancelados()}">0</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#b91c1c" th:text="${desglose.pedidosCancelados()}">0</div>
                 </div>
             </div>
         </div>
@@ -281,7 +281,7 @@
                         <br>📝 <span th:text="${#strings.abbreviate(p.descripcion, 160)}">Descripción</span>
                     </th:block>
                     <th:block th:if="${vtab == 'rechazado' and p.motivoRechazo != null and !p.motivoRechazo.isBlank()}">
-                        <br><span style="color:var(--danger)" th:text="'⛔ Motivo: ' + ${p.motivoRechazo}">Motivo</span>
+                        <br><span style="color:#b91c1c" th:text="'⛔ Motivo: ' + ${p.motivoRechazo}">Motivo</span>
                     </th:block>
                 </div>
             </div>
@@ -322,12 +322,12 @@
             <div class="form-group">
                 <label>Desde</label>
                 <input type="date" name="desde" th:value="${reporte.desde()}"
-                       style="width:100%;padding:12px 15px;background:var(--input-bg);border:1px solid var(--input-border);border-radius:10px;color:var(--light);font-family:'DM Sans',sans-serif;font-size:14px">
+                       style="width:100%;padding:12px 15px;background:rgba(28,24,16,0.03);border:1px solid rgba(28,24,16,0.10);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px">
             </div>
             <div class="form-group">
                 <label>Hasta</label>
                 <input type="date" name="hasta" th:value="${reporte.hasta()}"
-                       style="width:100%;padding:12px 15px;background:var(--input-bg);border:1px solid var(--input-border);border-radius:10px;color:var(--light);font-family:'DM Sans',sans-serif;font-size:14px">
+                       style="width:100%;padding:12px 15px;background:rgba(28,24,16,0.03);border:1px solid rgba(28,24,16,0.10);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px">
             </div>
             <div class="form-group">
                 <label>Estado del pedido</label>
